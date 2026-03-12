@@ -84,7 +84,66 @@ mysql -h localhost -u user -ppassword contratacao < scripts/script.sql
 
 ---
 
-## 🛠️ Tecnologias
+## � Executando a Aplicação Python Localmente
+
+Caso queira rodar o `main.py` fora do Docker (ex: para desenvolvimento e debug), siga os passos abaixo.
+
+### Pré-requisitos
+
+- Python 3.11+ instalado
+- MySQL rodando (pode usar apenas o serviço `db` do Docker Compose)
+
+### Passo 1 — Subir somente o banco de dados
+
+```bash
+docker-compose up db -d
+```
+
+> Isso sobe apenas o MySQL, sem o container da aplicação.
+
+### Passo 2 — Criar e ativar o ambiente virtual
+
+```bash
+# Criar o venv
+python -m venv venv
+
+# Ativar no macOS/Linux
+source venv/bin/activate
+
+# Ativar no Windows
+venv\Scripts\activate
+```
+
+### Passo 3 — Instalar as dependências
+
+```bash
+pip install -r app/requirements.txt
+```
+
+### Passo 4 — Configurar as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto ou exporte as variáveis no terminal:
+
+```bash
+export DB_HOST=localhost
+export DB_USER=user
+export DB_PASSWORD=password
+export DB_NAME=contratacao
+```
+
+> ⚠️ No `main.py` as variáveis estão atualmente com valores fixos. Para usar o `.env`, descomente as linhas com `os.getenv(...)` e comente as que têm os valores hardcoded.
+
+### Passo 5 — Executar a aplicação
+
+```bash
+python app/main.py
+```
+
+Você verá no terminal o contrato cadastrado e os registros consultados no banco. ✅
+
+---
+
+## �🛠️ Tecnologias
 
 | Tecnologia   | Versão  | Uso                          |
 |-------------|---------|------------------------------|
